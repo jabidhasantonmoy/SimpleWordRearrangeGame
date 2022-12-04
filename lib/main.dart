@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:simple_word_rearrange_game/pages/game_page.dart';
+import 'package:simple_word_rearrange_game/pages/result_page.dart';
 import 'package:simple_word_rearrange_game/pages/start_page.dart';
 
 void main() {
@@ -20,6 +22,8 @@ class MyApp extends StatelessWidget {
       initialRoute: StartPage.routeName,
       routes: {
         StartPage.routeName: (context) => const StartPage(),
+        GamePage.routeName: (context) => const GamePage(),
+        ResultPage.routeName: (context) => const ResultPage(),
       },
     );
   }

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'game_page.dart';
+
 class StartPage extends StatelessWidget {
   static const routeName = '/startPage';
   const StartPage({Key? key}) : super(key: key);
@@ -7,7 +9,6 @@ class StartPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -31,7 +32,9 @@ class StartPage extends StatelessWidget {
                 height: 50,
                 width: 100,
                 child: TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pushReplacementNamed(context, GamePage.routeName);
+                  },
                   child: const Text(
                     'Start',
                     style: TextStyle(fontSize: 20, color: Colors.black45),

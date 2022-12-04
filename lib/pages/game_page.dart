@@ -3,6 +3,7 @@ import 'dart:math';
 
 import 'package:english_words/english_words.dart' as ew;
 import 'package:flutter/material.dart';
+import 'package:simple_word_rearrange_game/pages/result_page.dart';
 
 class GamePage extends StatefulWidget {
   static const routeName = '/gamePage';
@@ -22,8 +23,8 @@ class _GamePageState extends State<GamePage> {
   List<String> wordList = ew.nouns;
   final Random _random = Random.secure();
   Timer? timer;
-  int count = 21;
-  int timerCount = 21;
+  int count = 20;
+  int timerCount = 20;
   int level = 1;
   int wordCount = 0;
 
@@ -59,8 +60,13 @@ class _GamePageState extends State<GamePage> {
                     forceStopTimer();
                     setState(() {
                       timerCount = count;
-                      // int tempCorrect = correct;
-                      // int tempIncorrect = inCorrect;
+                      int tempCorrect = correct;
+                      int tempIncorrect = inCorrect;
+                      Navigator.pushReplacementNamed(
+                        context,
+                        ResultPage.routeName,
+                        arguments: [tempCorrect, tempIncorrect],
+                      );
                       correct = 0;
                       inCorrect = 0;
                     });
@@ -99,7 +105,6 @@ class _GamePageState extends State<GamePage> {
                 controller: _userInput,
                 decoration: InputDecoration(
                   hintText: 'Enter The Correct Word',
-                  //label: const Text('Word'),
                   border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10)),
                 ),
@@ -112,7 +117,6 @@ class _GamePageState extends State<GamePage> {
                 child: ElevatedButton(
                   onPressed: () {
                     setState(() {
-                      //String input = _userInput.text;
                       if (_userInput.text == selectedWord) {
                         correct++;
                       } else {
@@ -123,6 +127,7 @@ class _GamePageState extends State<GamePage> {
                       shuffledWord = shuffleWord(selectedWord);
                       wordCount++;
                       timerCount = count;
+                      clearText();
                     });
                   },
                   child: const Text(
@@ -157,8 +162,13 @@ class _GamePageState extends State<GamePage> {
     timer?.cancel();
   }
 
+  void clearText() {
+    _userInput.clear();
+  }
+
   String shuffleWord(String word) {
     List<String> tempList = word.split('');
+    tempList.shuffle();
     tempList.shuffle();
     tempList.shuffle();
     return tempList.join('');
